@@ -27,7 +27,7 @@ const  { withAuth } = createAuth({
   secretField: 'password',
 });
 
-export default config({
+export default withAuth({
   db: {
     adapter: 'mongoose',
     url: DATABSE_URL,
@@ -45,7 +45,7 @@ export default config({
   // TODO: Show UI only for people that pass the test
     isAccessAllowed: ({ session }) => {
       console.log({ session });
-      return !!session?.data || true;
+      return !!session?.data;
     },
   },
   session: withItemData(
