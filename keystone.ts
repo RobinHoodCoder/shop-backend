@@ -28,33 +28,35 @@ const  { withAuth } = createAuth({
   secretField: 'password',
 });
 
-export default withAuth({
-  db: {
-    adapter: 'mongoose',
-    url: DATABSE_URL,
-  },
-  lists: createSchema({
+export default withAuth(
+  config({
+    db: {
+      adapter: 'mongoose',
+      url: DATABSE_URL,
+    },
+    lists: createSchema({
     // scheme goes here
-    User,
-    Product,
-  }),
-  server: {
-    cors: {
-      origin: FRONTEND_URL,
+      User,
+      Product,
+    }),
+    server: {
+      cors: {
+        origin: FRONTEND_URL,
+      },
     },
-  },
-  ui: {
-  // TODO: Show UI only for people that pass the test
-    isAccessAllowed: ({ session }) => {
-      console.log({ session });
-      return !!session?.data;
+    ui: {
+      // TODO: Show UI only for people that pass the test
+      isAccessAllowed: ({ session }) => {
+        console.log({ session });
+        return !!session?.data;
+      },
     },
-  },
-  session: withItemData(
-    statelessSessions(sessionConfig),
-    {
-      User: `id`,
-    }
-  ),
+    session: withItemData(
+      statelessSessions(sessionConfig),
+      {
+        User: `id`,
+      }
+    ),
   // TODO: change this for roles
-});
+  })
+);
