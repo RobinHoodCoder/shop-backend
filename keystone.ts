@@ -3,6 +3,7 @@ import 'dotenv/config';
 import { User } from './schemas/User';
 import { createAuth } from '@keystone-next/auth';
 import { statelessSessions, withItemData } from '@keystone-next/keystone/session';
+import { Product } from './schemas/Product';
 const {
   DATABSE_URL = 'mongodb+srv://sick:8beKpYfHUPeRl03O@clustorr.zmgxn.mongodb.net/sickfits?retryWrites=true&w=majority',
   COOKIE_SECRET,
@@ -35,6 +36,7 @@ export default withAuth({
   lists: createSchema({
     // scheme goes here
     User,
+    Product,
   }),
   server: {
     cors: {
