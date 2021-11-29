@@ -5,7 +5,7 @@ import 'dotenv/config';
 
 const {
   CLOUDINARY_CLOUD_NAME: cloudName,
-  COOKIE_SECRET: apiSecret,
+  CLOUDINARY_SECRET: apiSecret,
   CLOUDINARY_KEY: apiKey,
 } = process.env;
 
@@ -16,6 +16,7 @@ export const ProductImage = list({
         cloudName,
         apiSecret,
         apiKey,
+        folder: 'shop',
       },
       label: 'Source',
     }),
