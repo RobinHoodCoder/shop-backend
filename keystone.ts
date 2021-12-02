@@ -10,10 +10,15 @@ import { insertSeedData } from './seed-data';
 const { argv } = process;
 
 const {
-  DATABSE_URL = 'mongodb+srv://sick:8beKpYfHUPeRl03O@clustorr.zmgxn.mongodb.net/sickfits?retryWrites=true&w=majority',
+  DATABASE_URL,
   COOKIE_SECRET,
   FRONTEND_URL,
 } = process.env || {};
+
+
+if (!DATABASE_URL) {
+  throw new Error('No database URL provided');
+}
 
 const sessionConfig = {
   maxAge: 60 * 60 * 24 * 360,
@@ -37,7 +42,7 @@ export default withAuth(
   config({
     db: {
       adapter: 'mongoose',
-      url: DATABSE_URL,
+      url: DATABASE_URL,
       async onConnect(keystone) {
         console.log('Connected', keystone);
         if (argv.includes('--seed-data')) {
