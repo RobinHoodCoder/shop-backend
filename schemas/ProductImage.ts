@@ -9,6 +9,24 @@ const {
   CLOUDINARY_KEY: apiKey,
 } = process.env;
 
+/*
+ *const fileAdapter = new CloudinaryAdapter({
+ *cloudName,
+ *apiKey,
+ *apiSecret,
+ *folder: 'shop',
+ *});
+ */
+
+console.log(
+  {
+    cloudName,
+    apiSecret,
+    apiKey,
+  }, 'aweg'
+
+);
+
 export const ProductImage = list({
   fields: {
     image: cloudinaryImage({

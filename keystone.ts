@@ -40,6 +40,12 @@ const  { withAuth } = createAuth({
 
 export default withAuth(
   config({
+    server: {
+      cors: {
+        origin: [FRONTEND_URL],
+        credentials: true,
+      },
+    },
     db: {
       adapter: 'mongoose',
       url: DATABASE_URL,
@@ -56,11 +62,6 @@ export default withAuth(
       Product,
       ProductImage,
     }),
-    server: {
-      cors: {
-        origin: FRONTEND_URL,
-      },
-    },
     ui: {
       isAccessAllowed: ({ session }) => {
         console.log({ session });
