@@ -37,12 +37,11 @@ const  { withAuth } = createAuth({
   },
   secretField: 'password',
 });
-
 export default withAuth(
   config({
     server: {
       cors: {
-        origin: [FRONTEND_URL],
+        origin: [FRONTEND_URL, 'localhost:3000/api/graphql'],
         credentials: true,
       },
     },
@@ -69,7 +68,11 @@ export default withAuth(
       },
     },
     session: withItemData(
-      statelessSessions(sessionConfig),
+      statelessSessions({
+        maxAge: 60 * 60 * 24 * 360,
+        secret: COOKIE_SECRET || '',
+        secure: false,
+      }),
       {
         User: `id`,
       }
