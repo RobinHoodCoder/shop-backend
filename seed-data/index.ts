@@ -13,7 +13,8 @@ export const insertSeedData = async (ks) => {
       .model('ProductImage')
       .create({ image: product.photo, altText: product.description });
     product.photo = _id;
-    await mongoose.model('Product').create(product);
+    await mongoose.model('Product')
+      .create(product);
   }
   console.log(`✅ Seed Data Inserted: ${products.length} Products`);
   console.log(`👋 Please start the process with \`yarn dev\` or \`npm run dev\``);

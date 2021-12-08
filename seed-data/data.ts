@@ -4,7 +4,7 @@ function timestamp() {
         Date.now() - Math.floor(Math.random() * 1000 * 60 * 60 * 24 * 30);
   return new Date(stampy).toISOString();
 }
-
+export const photos = [];
 export const products = [
   {
     name: 'Yeti Hondo',
