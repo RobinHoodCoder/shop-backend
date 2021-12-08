@@ -15,15 +15,15 @@ const {
   FRONTEND_URL,
 } = process.env || {};
 
-
-if (!DATABASE_URL) {
-  throw new Error('No database URL provided');
-}
-
-const sessionConfig = {
-  maxAge: 60 * 60 * 24 * 360,
-  secret: COOKIE_SECRET,
-};
+[
+  DATABASE_URL,
+  COOKIE_SECRET,
+  FRONTEND_URL,
+].forEach((item) => {
+  if (!item) {
+    throw new Error(`${item} not provided. please check.env`);
+  }
+});
 
 const  { withAuth } = createAuth({
   listKey: 'User',
@@ -56,7 +56,6 @@ export default withAuth(
       },
     },
     lists: createSchema({
-    // scheme goes here
       User,
       Product,
       ProductImage,
@@ -70,8 +69,7 @@ export default withAuth(
     session: withItemData(
       statelessSessions({
         maxAge: 60 * 60 * 24 * 360,
-        secret: COOKIE_SECRET || '',
-        secure: false,
+        secret: COOKIE_SECRET || 'sajlkdsajlkdjsalddd3333333kjdsaldsa',
       }),
       {
         User: `id`,

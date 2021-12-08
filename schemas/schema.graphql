@@ -127,6 +127,7 @@ type Product {
     id: ID!
     name: String
     photo: ProductImage
+    price: Int
     status: String
 }
 
@@ -382,6 +383,8 @@ enum SortProductsBy {
     name_DESC
     photo_ASC
     photo_DESC
+    price_ASC
+    price_DESC
     status_ASC
     status_DESC
 }
@@ -451,6 +454,7 @@ input ProductCreateInput {
     description: String
     name: String
     photo: ProductImageRelateToOneInput
+    price: Int
     status: String
 }
 
@@ -534,6 +538,7 @@ input ProductUpdateInput {
     description: String
     name: String
     photo: ProductImageRelateToOneInput
+    price: Int
     status: String
 }
 
@@ -582,6 +587,14 @@ input ProductWhereInput {
     name_starts_with_i: String
     photo: ProductImageWhereInput
     photo_is_null: Boolean
+    price: Int
+    price_gt: Int
+    price_gte: Int
+    price_in: [Int]
+    price_lt: Int
+    price_lte: Int
+    price_not: Int
+    price_not_in: [Int]
     status: String
     status_contains: String
     status_contains_i: String

@@ -19,7 +19,6 @@
     "stripe": "^8.130.0"
   },
   "devDependencies": {
-    "@testing-library/react": "^12.1.2",
     "@typescript-eslint/eslint-plugin": "^4.9.0",
     "@typescript-eslint/parser": "^4.9.0",
     "babel-eslint": "^10.1.0",

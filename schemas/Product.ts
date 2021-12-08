@@ -1,10 +1,10 @@
-import { relationship, select, text } from '@keystone-next/fields';
+import { integer, select, text, relationship, virtual } from '@keystone-next/fields';
 import { list } from '@keystone-next/keystone/schema';
 
 export const Product = list({
   /*
-   * TODO:
-   * assecc
+   * TODO
+   * access:
    */
   fields: {
     name: text({ isRequired: true }),
@@ -31,10 +31,10 @@ export const Product = list({
       defaultValue: 'DRAFT',
       ui: {
         displayMode: 'segmented-control',
-        createView: {
-          fieldMode: 'hidden',
-        },
+        createView: { fieldMode: 'hidden' },
       },
     }),
+    price: integer(),
+    // TODO: Photo
   },
 });
