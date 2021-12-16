@@ -1,3 +1,6 @@
 {
-  "strict": true
+  "strict": true,
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true
+  }
 }
