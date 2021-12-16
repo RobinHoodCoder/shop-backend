@@ -107,6 +107,8 @@ type Mutation {
     " Delete multiple User items by ID. "
     deleteUsers(ids: [ID!]): [User]
     endSession: Boolean!
+    redeemUserPasswordResetToken(email: String!, password: String!, token: String!): RedeemUserPasswordResetTokenResult
+    sendUserPasswordResetLink(email: String!): SendUserPasswordResetLinkResult
     " Update a single Product item by ID. "
     updateProduct(data: ProductUpdateInput, id: ID!): Product
     " Update a single ProductImage item by ID. "
@@ -171,6 +173,17 @@ type Query {
     appVersion: String
     authenticatedItem: AuthenticatedItem
     keystone: KeystoneMeta!
+    validateUserPasswordResetToken(email: String!, token: String!): ValidateUserPasswordResetTokenResult
+}
+
+type RedeemUserPasswordResetTokenResult {
+    code: PasswordResetRedemptionErrorCode!
+    message: String!
+}
+
+type SendUserPasswordResetLinkResult {
+    code: PasswordResetRequestErrorCode!
+    message: String!
 }
 
 " A keystone list "
@@ -195,6 +208,11 @@ type UserAuthenticationWithPasswordFailure {
 type UserAuthenticationWithPasswordSuccess {
     item: User!
     sessionToken: String!
+}
+
+type ValidateUserPasswordResetTokenResult {
+    code: PasswordResetRedemptionErrorCode!
+    message: String!
 }
 
 type _ListAccess {
@@ -258,7 +276,7 @@ type _ListMeta {
     "The list's display name in the Admin UI"
     label: String
     "The Keystone List name"
-    name: String @deprecated(reason : "Use `key` instead")
+    name: String @deprecated(reason: "Use `key` instead")
     "The list's data path"
     path: String
     "The list's plural display name"
@@ -318,7 +336,7 @@ type _ListSchema {
 
 type _ListSchemaFields {
     "The name of the field in its list"
-    name: String @deprecated(reason : "Use `path` instead")
+    name: String @deprecated(reason: "Use `path` instead")
     "The path of the field in its list"
     path: String
     "The field type (ie, Checkbox, Text, etc)"
@@ -365,6 +383,21 @@ enum PasswordAuthErrorCode {
     SECRET_NOT_SET
 }
 
+enum PasswordResetRedemptionErrorCode {
+    FAILURE
+    IDENTITY_NOT_FOUND
+    MULTIPLE_IDENTITY_MATCHES
+    TOKEN_EXPIRED
+    TOKEN_MISMATCH
+    TOKEN_NOT_SET
+    TOKEN_REDEEMED
+}
+
+enum PasswordResetRequestErrorCode {
+    IDENTITY_NOT_FOUND
+    MULTIPLE_IDENTITY_MATCHES
+}
+
 enum SortProductImagesBy {
     altText_ASC
     altText_DESC
@@ -405,6 +438,12 @@ enum SortUsersBy {
     passwordResetRedeemedAt_ASC
     passwordResetRedeemedAt_DESC
 }
+
+"The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
+scalar JSON
+
+"The `Upload` scalar type represents a file upload."
+scalar Upload
 
 """
 
@@ -754,10 +793,3 @@ input _ksListsMetaInput {
     auxiliary: Boolean
     key: String
 }
-
-
-"The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
-scalar JSON
-
-"The `Upload` scalar type represents a file upload."
-scalar Upload
