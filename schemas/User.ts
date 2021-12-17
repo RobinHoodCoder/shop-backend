@@ -1,5 +1,5 @@
 import { list } from '@keystone-next/keystone/schema';
-import { password, text } from '@keystone-next/fields';
+import { password, relationship, text } from '@keystone-next/fields';
 
 export const User = list({
   fields: {
@@ -13,6 +13,10 @@ export const User = list({
         isRequired: true, isUnique: true,
       }
     ),
+    cart: relationship({
+      ref: 'CartItem.user',
+      many: true,
+    }),
     password: password(),
     // TODO add roles, const , orders
   },

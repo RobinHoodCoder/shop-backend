@@ -7,6 +7,7 @@ import { Product } from './schemas/Product';
 import { ProductImage } from './schemas/ProductImage';
 import { insertSeedData } from './seed-data';
 import { sendPasswordResetEmail } from './lib/mail';
+import { CartItem } from './schemas/CartItem';
 
 const { argv } = process;
 
@@ -40,6 +41,7 @@ const  { withAuth } = createAuth({
   passwordResetLink: {
     async sendToken(args) {
       // send the email
+      console.log({ args });
       await sendPasswordResetEmail({ resetToken: args.token, to: args.identity });
     },
   },
@@ -56,7 +58,7 @@ export default withAuth(
       adapter: 'mongoose',
       url: DATABASE_URL,
       async onConnect(keystone) {
-        console.log('Connected', keystone);
+        console.log('Connected');
         if (argv.includes('--seed-data')) {
           await insertSeedData(keystone);
         }
@@ -66,10 +68,10 @@ export default withAuth(
       User,
       Product,
       ProductImage,
+      CartItem,
     }),
     ui: {
       isAccessAllowed: ({ session }) => {
-        console.log({ session });
         return !!session?.data;
       },
     },
