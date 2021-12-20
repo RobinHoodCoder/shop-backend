@@ -2,6 +2,15 @@ import { integer, select, text, relationship, virtual } from '@keystone-next/fie
 import { list } from '@keystone-next/keystone/schema';
 
 export const CartItem = list({
+  ui: {
+    listView: {
+      initialColumns: [
+        'product',
+        'quantity',
+        'user',
+      ],
+    },
+  },
   fields: {
     quantity: integer({
       defaultValue: 1,

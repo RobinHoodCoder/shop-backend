@@ -6,6 +6,15 @@ export const Product = list({
    * TODO
    * access:
    */
+  ui: {
+    listView: {
+      initialColumns: [
+        'name',
+        'price',
+        'description',
+      ],
+    },
+  },
   fields: {
     name: text({ isRequired: true }),
     description: text({
