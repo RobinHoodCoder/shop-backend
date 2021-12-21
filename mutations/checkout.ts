@@ -1,5 +1,6 @@
 import { KeystoneContext } from '@keystone-next/types';
-import { OrderCreateInput } from '../.keystone/schema-types';
+import { CartItemCreateInput, OrderCreateInput } from '../.keystone/schema-types';
+import stripeConfig from '../lib/stripe';
 type Arguments = {
   token: string,
 }
@@ -45,6 +46,40 @@ const checkout = async (
       });
       console.log(!!user, 'User?');
       console.dir(user, { depth: null });
+      const { id } = user;
+      const cartItems =  user.cart.filter(item => !!item.product);
+      const amount = cartItems.reduce((tally: number, cartItem: CartItemCreateInput) => {
+        return (tally) + (cartItem.quantity * cartItem.product?.price);
+      }, 0);
+      console.log('AMT', amount);
+
+      const charge = await stripeConfig.paymentIntents.create({
+        amount,
+        currency: 'USD',
+        confirm: true,
+        payment_method: token,
+      });
+      const orderItems = cartItems.map((cartItem) => {
+        const { product, quantity } = cartItem;
+        const { name, description, price, photo } = product;
+        return {
+          name,
+          description,
+          price,
+          quantity,
+          photo: { connect: { id: photo.id } },
+        };
+      });
+
+      return await context.lists.Order.createOne({
+        data: {
+          total: charge.amount,
+          charge: charge.id,
+          items: { create: orderItems },
+          user: { connect: { id } },
+        },
+        resolveFields: false,
+      });
     } catch (err) {
       console.error(err);
     }
