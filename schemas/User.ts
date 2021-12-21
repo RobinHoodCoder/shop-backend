@@ -19,5 +19,11 @@ export const User = list({
     }),
     password: password(),
     // TODO add roles, const , orders
+    orders: relationship(
+      {
+        ref: 'Order.user',
+        many: true,
+      }
+    ),
   },
 });

@@ -15,7 +15,6 @@ const AddToCart = async (
     throw new Error('You must be signed in to add to cart');
   }
 
-
   const allCartItems = await context.lists.CartItem.findMany({
     where: {
       user: {
@@ -25,6 +24,7 @@ const AddToCart = async (
         id: productId,
       },
     },
+    resolveFields: 'id,quantity',
   });
 
   const [existingCartItem] = allCartItems;

@@ -8,6 +8,9 @@ import { ProductImage } from './schemas/ProductImage';
 import { insertSeedData } from './seed-data';
 import { sendPasswordResetEmail } from './lib/mail';
 import { CartItem } from './schemas/CartItem';
+import { extendGraphqlSchema } from './mutations';
+import { OrderItem } from './schemas/OrderItem';
+import { Order } from './schemas/Order';
 
 const { argv } = process;
 
@@ -50,7 +53,7 @@ export default withAuth(
   config({
     server: {
       cors: {
-        origin: [FRONTEND_URL, 'localhost:3000/api/graphql'],
+        origin: [FRONTEND_URL, 'localhost:1234', 'localhost:3000/api/graphql'],
         credentials: true,
       },
     },
@@ -69,7 +72,10 @@ export default withAuth(
       Product,
       ProductImage,
       CartItem,
+      OrderItem,
+      Order,
     }),
+    extendGraphqlSchema,
     ui: {
       isAccessAllowed: ({ session }) => {
         return !!session?.data;
