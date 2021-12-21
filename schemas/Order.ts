@@ -8,7 +8,7 @@ export const Order = list({
       resolver: (item) => {
         return `Cool ${item.total}`;
       },
-      graphQLReturnType: 'string',
+      graphQLReturnType: 'String',
     }),
     total: integer(),
     items: relationship(
