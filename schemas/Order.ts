@@ -4,11 +4,11 @@ import { integer, relationship, text, virtual } from '@keystone-next/fields';
 export const Order = list({
   fields: {
     label: virtual({
-    // TODO: check this. May need finction instead
+    // TODO: check this. May need function instead
       resolver: (item) => {
         return `Cool ${item.total}`;
       },
-      graphQLReturnType: 'string',
+      graphQLReturnType: 'String',
     }),
     total: integer(),
     items: relationship(
