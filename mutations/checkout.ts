@@ -44,8 +44,7 @@ const checkout = async (
           }
       `,
       });
-      console.log(!!user, 'User?');
-      console.dir(user, { depth: null });
+
       const { id } = user;
       const cartItems =  user.cart.filter(item => !!item.product);
       const amount = cartItems.reduce((tally: number, cartItem: CartItemCreateInput) => {
