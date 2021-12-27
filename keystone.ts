@@ -11,6 +11,7 @@ import { CartItem } from './schemas/CartItem';
 import { extendGraphqlSchema } from './mutations';
 import { OrderItem } from './schemas/OrderItem';
 import { Order } from './schemas/Order';
+import { permissionsList } from './schemas/fields';
 
 const { argv } = process;
 
@@ -87,7 +88,7 @@ export default withAuth(
         secret: COOKIE_SECRET || 'sajlkdsajlkdjsalddd3333333kjdsaldsa',
       }),
       {
-        User: `id`,
+        User: `id name email role { ${permissionsList.join(' ')} }`,
       }
     ),
   // TODO: change this for roles

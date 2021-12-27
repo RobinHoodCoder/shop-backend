@@ -1,11 +1,18 @@
 import { integer, select, text, relationship, virtual } from '@keystone-next/fields';
 import { list } from '@keystone-next/keystone/schema';
+import { isSignedIn } from '../access';
 
 export const Product = list({
   /*
    * TODO
    * access:
    */
+  access: {
+    create: isSignedIn,
+    read: isSignedIn,
+    update: isSignedIn,
+    delete: isSignedIn,
+  },
   ui: {
     listView: {
       initialColumns: [
