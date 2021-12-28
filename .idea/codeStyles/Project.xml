@@ -130,6 +130,9 @@
       </indentOptions>
     </codeStyleSettings>
     <codeStyleSettings language="TypeScript">
+      <indentOptions>
+        <option name="INDENT_SIZE" value="2" />
+      </indentOptions>
       <arrangement>
         <rules>
           <section>

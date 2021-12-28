@@ -15,6 +15,13 @@ export const User = list({
      */
     delete: permissions.canManageUsers,
   },
+  ui: {
+  // hide backend from reular users
+    hideCreate: (args) => {
+      return !permissions.canManageUsers(args);
+    },
+    hideDelete: args => permissions.canManageUsers(args),
+  },
   fields: {
     name: text(
       {
