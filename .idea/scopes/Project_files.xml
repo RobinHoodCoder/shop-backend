@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Project files" pattern="(file[sick-backend]:lib//*||file[sick-backend]:mutations//*||file[sick-backend]:public//*||file[sick-backend]:schemas//*||file[sick-backend]:seed-data//*)&amp;&amp;!file:package-lock.json" />
+</component>

@@ -80,6 +80,7 @@ const checkout = async (
         resolveFields: false,
       });
     } catch (err) {
+      console.log('Error', 'Could not crete order!');
       console.error(err);
     }
   }
