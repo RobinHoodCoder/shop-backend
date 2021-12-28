@@ -30,12 +30,19 @@ export const User = list({
       many: true,
     }),
     password: password(),
-    // TODO add roles, const , orders
     orders: relationship(
       {
         ref: 'Order.user',
         many: true,
       }
     ),
+    // TODO add roles, const , orders
+    role: relationship({
+      ref: 'Role.assignedTo',
+    }),
+    products: relationship({
+      ref: 'Product.user',
+      many: true,
+    }),
   },
 });

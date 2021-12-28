@@ -12,6 +12,7 @@ import { extendGraphqlSchema } from './mutations';
 import { OrderItem } from './schemas/OrderItem';
 import { Order } from './schemas/Order';
 import { permissionsList } from './schemas/fields';
+import { Role } from './schemas/Role';
 
 const { argv } = process;
 
@@ -75,6 +76,7 @@ export default withAuth(
       CartItem,
       OrderItem,
       Order,
+      Role,
     }),
     extendGraphqlSchema,
     ui: {

@@ -48,7 +48,7 @@ const checkout = async (
       const { id } = user;
       const cartItems =  user.cart.filter(item => !!item.product);
       const amount = cartItems.reduce((tally: number, cartItem: CartItemCreateInput) => {
-        return (tally) + (cartItem.quantity * cartItem.product?.price);
+        return (tally) + (cartItem.quantity * cartItem?.product?.price);
       }, 0);
       console.log('AMT', amount);
 
