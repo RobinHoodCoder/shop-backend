@@ -9,7 +9,7 @@ export const Product = list({
    */
   access: {
     create: isSignedIn,
-    read: isSignedIn,
+    read: () => true,
     update: isSignedIn,
     delete: isSignedIn,
   },
@@ -53,12 +53,14 @@ export const Product = list({
     price: integer(),
     user: relationship({
       ref: 'User.products',
-      defaultValue: ({ context }) => ({
-        connect:
-        {
-          id: context.session.item.id,
-        },
-      }),
+      defaultValue: ({ context }) => {
+        return {
+          connect:
+              {
+                id: context.session.itemId,
+              },
+        };
+      },
     }),
     // TODO: Photo
   },

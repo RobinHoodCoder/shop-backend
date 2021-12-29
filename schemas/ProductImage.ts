@@ -22,7 +22,7 @@ const adapter = new CloudinaryAdapter({
 export const ProductImage = list({
   access: {
     create: isSignedIn,
-    read: true,
+    read: () => true,
     update: permissions.canManageProducts,
   },
   fields: {
